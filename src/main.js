@@ -1,6 +1,7 @@
 
 import { APICityManager } from "./utils/api_city_manager.js";
 import { APIWeatherManager } from "./utils/api_weather_manager.js";
+import { APICityPictureManager } from "./utils/api_city_pictures_manager.js";
 
 const app = document.getElementById("app");
 
@@ -29,13 +30,15 @@ async function main() {
           li.addEventListener("click", async () => {
             fields.citysearch.value = city;
             fields.citylist.innerHTML = "";
-            await renderWeather(city, fields);
+            // await renderWeather(city, fields);
+            await upDataCityData(city, fields)
           });
           fields.citylist.appendChild(li);
         });
       }
     });
-    await renderWeather(fields.cityname.textContent.split(": ")[1], fields);
+    // await renderWeather(fields.cityname.textContent.split(": ")[1], fields);
+    await upDataCityData(fields.cityname.textContent.split(": ")[1], fields);
 }
 
 async function renderWeather(city, fields) {
@@ -54,6 +57,21 @@ async function renderWeather(city, fields) {
     fields.weathericon.alt = data.description
   } else {
     app.innerHTML = `<p>No se pudo obtener información del clima.</p>`;
+  }
+}
+
+async function fetchWetherImage(city, weatherCondition) {
+  const apiWeatherCondition = new APICityPictureManager()
+  const weatherConditionPicture = await apiWeatherCondition.getWetherPicture(city, weatherCondition)
+  document.body.style.backgroundImage = `url(${weatherConditionPicture})`;
+}
+
+async function upDataCityData(city, fields) {
+  try {
+    await renderWeather(city, fields);
+    await fetchWetherImage(city, fields.weathericon.alt);
+  }catch(error){
+    console.log("Unable to update weather information")
   }
 }
 
