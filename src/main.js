@@ -60,16 +60,16 @@ async function renderWeather(city, fields) {
   }
 }
 
-async function fetchWetherImage(city, weatherCondition) {
-  const apiWeatherCondition = new APICityPictureManager()
-  const weatherConditionPicture = await apiWeatherCondition.getWetherPicture(city, weatherCondition)
-  document.body.style.backgroundImage = `url(${weatherConditionPicture})`;
+async function fetchCityImage(city) {
+  const apiCityImages = new APICityPictureManager()
+  const cityPicture = await apiCityImages.getCityPicture(city)
+  document.body.style.backgroundImage = `url(${cityPicture})`;
 }
 
 async function upDataCityData(city, fields) {
   try {
     await renderWeather(city, fields);
-    await fetchWetherImage(city, fields.weathericon.alt);
+    await fetchCityImage(city);
   }catch(error){
     console.log("Unable to update weather information")
   }

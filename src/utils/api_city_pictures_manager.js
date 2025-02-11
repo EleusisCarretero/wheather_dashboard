@@ -1,16 +1,18 @@
 import { APIManager } from "./api_manager.js";
 
-const BASE_URL = "https://api.unsplash.com/search"
-const API_KEY = "14zkZ8Wzv6WXFRv6s3BcXi86Wcz3rEHIgDmaE8bAV_k"
+const BASE_URL = "https://www.googleapis.com/customsearch"
+const API_KEY = "AIzaSyCVbUkLOMrbxqznJEyaYFfD8_-5SGQoa-U"
+const CX = "b07bfbe04782c4376"
 
 export class APICityPictureManager extends APIManager {
 
     constructor(){
-        super(BASE_URL, `client_id=${API_KEY}`)
+        super(BASE_URL, `key=${API_KEY}`)
+        this.cx = `cx=${CX}`
     }
-    async getWetherPicture(city, weatherCondition){
-        const endPoint = `photos?query=${city} ${weatherCondition}`
+    async getCityPicture(city){
+        const endPoint = `v1?q=${city}%20centro%20historico&searchType=image&${this.cx}`
         const response = await this.getApiResponse(endPoint);
-        return response.results[0].urls.regular;
+        return response.items[0].link
     }
 }
