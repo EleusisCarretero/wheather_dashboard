@@ -3,10 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Clima</title>
+  <title>Dashboard del Clima</title>
+  <!-- Aquí se enlaza el archivo CSS -->
+  <link rel="stylesheet" href="./styles.css">
 </head>
 <body>
-  <div id="app"></div> <!-- Este div es el contenedor donde se renderiza el contenido -->
-  <script type="module" src="../src/main.js"></script> <!-- Enlace correcto al archivo JS -->
+  <div class="weather-container">
+    <h1>Clima en Zapopan</h1>
+    <div class="weather-info">
+      <p><strong>Temperatura:</strong> 20.69°C</p>
+      <p><strong>Humedad:</strong> 29%</p>
+      <p><strong>Nivel del mar:</strong> 10,000</p>
+      <p><strong>Velocidad del viento:</strong> 2.25 m/s</p>
+    </div>
+    <div class="weather-icon">
+      <img src="https://openweathermap.org/img/wn/04n@2x.png" alt="Clima">
+    </div>
+  </div>
 </body>
 </html>
