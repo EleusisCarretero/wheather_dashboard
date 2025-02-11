@@ -56,5 +56,4 @@ async function renderWeather(city, fields) {
   }
 }
 
-// Coordenadas de Zapopan
-console.log(main("Zapopan"));
+main("Zapopan");
