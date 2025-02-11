@@ -30,14 +30,12 @@ async function main() {
           li.addEventListener("click", async () => {
             fields.citysearch.value = city;
             fields.citylist.innerHTML = "";
-            // await renderWeather(city, fields);
             await upDataCityData(city, fields)
           });
           fields.citylist.appendChild(li);
         });
       }
     });
-    // await renderWeather(fields.cityname.textContent.split(": ")[1], fields);
     await upDataCityData(fields.cityname.textContent.split(": ")[1], fields);
 }
 
@@ -45,7 +43,6 @@ async function renderWeather(city, fields) {
   const apiCity = new APICityManager()
   const apiWeather = new APIWeatherManager()
   const coor_arr = await apiCity.getCityCoordsByName(city)
-  console.log(`Coo leidas: ${coor_arr}`)
   const data = await apiWeather.getCurrentMainWeatherInfoByCoords(coor_arr.lat, coor_arr.lng);
   const iconUrl = `https://openweathermap.org/img/wn/${data.iconCod}@2x.png`;
   if (data && data.name) {
@@ -56,7 +53,7 @@ async function renderWeather(city, fields) {
     fields.weathericon.src = iconUrl
     fields.weathericon.alt = data.description
   } else {
-    app.innerHTML = `<p>No se pudo obtener información del clima.</p>`;
+    app.innerHTML = `<p>NO weather information available.</p>`;
   }
 }
 
