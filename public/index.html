@@ -3,10 +3,37 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Clima</title>
+  <title>Dashboard del Clima</title>
+  <link rel="stylesheet" href="./styles.css"> <!-- Enlace al archivo CSS -->
 </head>
 <body>
-  <div id="app"></div> <!-- Este div es el contenedor donde se renderiza el contenido -->
-  <script type="module" src="../src/main.js"></script> <!-- Enlace correcto al archivo JS -->
+  <!-- Contenedor principal -->
+  <div class="main-container">
+    <!-- Buscador -->
+    <div class="search-container">
+      <input 
+        type="text" 
+        id="city-search" 
+        placeholder="Escribe una ciudad..." 
+        autocomplete="off"
+      />
+      <ul id="city-list" class="city-list"></ul>
+    </div>
+
+    <!-- Tarjeta del clima -->
+    <div class="weather-container">
+      <h1 id="city-name"><strong>Clima en: </strong>Zapopan</h1>
+      <div class="weather-info">
+        <p id="temperature"><strong>Temperatura:</strong> 0.0°C</p>
+        <p id="humidity"><strong>Humedad:</strong> 0%</p>
+        <p id="wind-speed"><strong>Velocidad del viento:</strong> 0.0 m/s</p>
+      </div>
+      <div class="weather-icon">
+        <img id="weather-icon" src="https://openweathermap.org/img/wn/04n@2x.png" alt="Clima">
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../src/main.js"></script> <!-- Archivo JavaScript -->
 </body>
 </html>

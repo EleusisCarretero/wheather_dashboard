@@ -19,7 +19,7 @@ export class APIWeatherManager extends APIManager {
             description: data.weather[0].description,
             humidity: data.main.humidity,
             visibility: data.visibility,
-            wind_speed: data.wind.speed,
+            windSpeed: data.wind.speed,
             iconCod: data.weather[0].icon
         }
     }

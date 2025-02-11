@@ -1,9 +1,43 @@
+
 import { APICityManager } from "./utils/api_city_manager.js";
 import { APIWeatherManager } from "./utils/api_weather_manager.js";
 
 const app = document.getElementById("app");
 
-async function renderWeather(city) {
+function readCurrentFiledInfo(){
+  const mainAvailableFields = ["city-search", "city-list", "city-name", "temperature", "humidity", "wind-speed", "weather-icon"]
+  let objFields = {};
+  for (var field of mainAvailableFields){
+    var objName = field.replace("-","")
+    objFields[objName] = document.getElementById(field);
+  }
+  return objFields
+}
+
+async function main() {
+    const cities = ["Zapopan", "Guadalajara", "Monterrey", "Ciudad de México", "Puebla", "Toluca"];
+    const fields = readCurrentFiledInfo()
+    fields.citysearch.addEventListener("input", () => {
+      const query = fields.citysearch.value.toLowerCase();
+      fields.citylist.innerHTML = "";
+
+      if (query){
+        const filteredCities = cities.filter(city => city.toLowerCase().includes(query));
+        filteredCities.forEach(city =>{
+          const li = document.createElement("li");
+          li.textContent = city;
+          li.addEventListener("click", async () => {
+            fields.citysearch.value = city;
+            fields.citylist.innerHTML = "";
+            await renderWeather(city, fields);
+          });
+          fields.citylist.appendChild(li);
+        });
+      }
+    });
+}
+
+async function renderWeather(city, fields) {
   const apiCity = new APICityManager()
   const apiWeather = new APIWeatherManager()
   const coor_arr = await apiCity.getCityCoordsByName(city)
@@ -11,18 +45,16 @@ async function renderWeather(city) {
   const data = await apiWeather.getCurrentMainWeatherInfoByCoords(coor_arr.lat, coor_arr.lng);
   const iconUrl = `https://openweathermap.org/img/wn/${data.iconCod}@2x.png`;
   if (data && data.name) {
-    app.innerHTML = `
-      <h2>Clima en ${data.name}</h2>
-      <p>Temperatura: ${data.temp}°C</p>
-      <p>Humidity: ${data.humidity}%</p>
-      <p>Humidity: ${data.visibility}</p>
-      <p>Humidity: ${data.wind_speed}m/s</p>
-      <img src="${iconUrl}" alt="${data.description}"> <!-- Mostrar el ícono -->
-    `;
+    fields.cityname.textContent = `Clima en ${data.name}`;
+    fields.temperature.textContent = `Temperatura: ${data.temp}°C`;
+    fields.humidity.textContent = `Humedad: ${data.humidity}%`;
+    fields.windspeed.textContent = `Velocidad del viento: ${data.windSpeed} m/s`;
+    fields.weathericon.src = iconUrl
+    fields.weathericon.alt = data.description
   } else {
     app.innerHTML = `<p>No se pudo obtener información del clima.</p>`;
   }
 }
 
 // Coordenadas de Zapopan
-console.log(renderWeather("Zapopan"));
+console.log(main("Zapopan"));
