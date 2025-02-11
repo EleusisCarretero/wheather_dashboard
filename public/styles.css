@@ -1,0 +1,95 @@
+/* Mantén el cuerpo centrado */
+/* Fondo completo */
+body {
+    background-image: url('ruta/a/tu/imagen.jpg'); /* Cambia esto a la ruta de tu imagen */
+    background-size: cover; /* Hace que la imagen ocupe todo el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-position: center; /* Centra la imagen */
+    font-family: Arial, sans-serif; /* Estilo del texto */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: white; /* Hace el texto blanco para contraste */
+  }
+  
+  
+  /* Contenedor principal */
+  .main-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px; /* Espaciado entre buscador y tarjeta */
+  }
+  
+  /* Buscador */
+  .search-container {
+    width: 300px;
+    position: relative;
+  }
+  
+  #city-search {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+  }
+  
+  .city-list {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 10;
+  }
+  
+  .city-list li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .city-list li:hover {
+    background: #f0f0f0;
+  }
+  
+  /* Tarjeta del clima */
+  .weather-container {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    max-width: 300px;
+    width: 100%;
+  }
+  
+  .weather-container h1 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    color: #333333;
+  }
+  
+  .weather-info p {
+    margin: 8px 0;
+    font-size: 1rem;
+    color: #555555;
+  }
+  
+  .weather-icon img {
+    margin-top: 20px;
+    width: 80px;
+    height: 80px;
+  }
+  
