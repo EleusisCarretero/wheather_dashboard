@@ -56,4 +56,4 @@ async function renderWeather(city, fields) {
   }
 }
 
-main("Zapopan");
+main();
