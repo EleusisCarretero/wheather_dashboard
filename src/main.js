@@ -35,6 +35,7 @@ async function main() {
         });
       }
     });
+    await renderWeather(fields.cityname.textContent.split(": ")[1], fields);
 }
 
 async function renderWeather(city, fields) {
