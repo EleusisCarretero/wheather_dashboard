@@ -24,4 +24,8 @@ export class ApiCityManager{
         const statesList = await this.ApiNamesClientInstance.getSates(countryName)
         return statesList.map(state => state.name);
     }
+    async getCitiesList(countryName, stateName){
+        const statesList = await this.ApiNamesClientInstance.getCities(countryName, stateName)
+        return statesList
+    }
 }

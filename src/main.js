@@ -93,9 +93,9 @@ async function displayedStates(Currentstate, fields){
 }
 
 async function displayedCities(state, fields){
-  const cities = ["Zapopan", "Guadalajara", "Monterrey", "Ciudad de México", "Puebla", "Toluca"];
-  // const apiCityManagerInst = new ApiCityManager()
-  // const cities = apiCityManagerInst.
+  // const cities = ["Zapopan", "Guadalajara", "Monterrey", "Ciudad de México", "Puebla", "Toluca"];
+  const apiCityManagerInst = new ApiCityManager()
+  const cities = await apiCityManagerInst.getCitiesList(fields.countrysearch.value, fields.statesearch.value)
   fields.citysearch.addEventListener("input", () => {
     const query = fields.citysearch.value.toLowerCase();
     fields.citylist.innerHTML = "";

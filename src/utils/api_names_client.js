@@ -16,7 +16,7 @@ export class ApiNamesClient extends ApiBaseClient {
     }
 
     async getCities(countryName, stateName){
-        const endPoint = `countries/states/cities`
+        const endPoint = `countries/state/cities`
         const data = await this.postApiRequest(endPoint, {"country": countryName, "state": stateName},false)
         return data.data
     }
