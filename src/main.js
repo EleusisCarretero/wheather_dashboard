@@ -166,7 +166,9 @@ async function fetchCityImage(cityName) {
   const cityPicture = await apiCityManagerInst.getCityImage(cityName)
   document.body.style.backgroundImage = `url(${cityPicture})`;
   }catch(error){
-    alert(`There is no available pictures for city ${cityName} :(`)
+    alert(`There is no available pictures for city ${cityName} :(. But hey take this nice kitty instead`)
+    const myKitty = await apiCityManagerInst.getRandomKitty()
+    document.body.style.backgroundImage = `url(${myKitty})`;
   }
 }
 

@@ -2,6 +2,7 @@ import { ApiGeoClient } from "./api_geo_client.js";
 import { ApiPictureClient } from "./api_picture_client.js";
 import { ApiWeatherClient } from "./api_weather_client.js";
 import { ApiNamesClient } from "./api_names_client.js";
+import { ApiKittyClient } from "./api_kitty_client.js";
 
 export class ApiCityManager{
     constructor(){
@@ -9,6 +10,7 @@ export class ApiCityManager{
         this.apiPictureClientInstance = new ApiPictureClient()
         this.ApiWeatherClientInstance = new ApiWeatherClient()
         this.ApiNamesClientInstance =  new ApiNamesClient()
+        this.ApiKittyClientInstance = new ApiKittyClient()
     }
     async getCityCurrentWeather(cityName){
         // 1. Get coords based on the city name
@@ -17,6 +19,7 @@ export class ApiCityManager{
         const weatherData = await this.ApiWeatherClientInstance.getCurrentMainWeatherInfoByCoords(...Object.values(cityCoords))
         return weatherData
     }
+
     async getCityImage(cityName, tries=3){
         let validFormats = ["png", "jpg"]
         let iniTry = 0
@@ -47,5 +50,9 @@ export class ApiCityManager{
     async getCitiesList(countryName, stateName){
         const statesList = await this.ApiNamesClientInstance.getCities(countryName, stateName)
         return statesList
+    }
+
+    async getRandomKitty(){
+        return await this.ApiKittyClientInstance.getSomeRandomKitty();
     }
 }
