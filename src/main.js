@@ -18,23 +18,26 @@ async function main() {
   stateManager(1, fields)
 }
 
-function stateManager(state, fields){
-  switch(state){
+function stateManager(currentState, fields){
+  switch(currentState){
     case 1: //Standby State: country-list = true; city-list = false
       // 1. Wait for user to introduce text on the field:country-lis
-      stateStandBy(state, fields)
+      stateStandBy(currentState, fields)
       break;
     case 2: //Pre-research: country-list = true; city-list = true
-      displayedStates(state, fields)
+      stateDisplayedStates(currentState, fields)
       break;
     case 3: // Re-weather research: country-list = true; city-list = true; reSearch=True
-      displayedCities(state, fields)
+      stateDisplayedCities(currentState, fields)
+      break;
+    case 4:
+      stateAwait(currentState, fields)
       break;
   }
 
 }
 
-function stateStandBy(state, fields){
+function stateStandBy(currentState, fields){
   const availableCountries = getCountryList()
   fields.countrysearch.addEventListener("input", () => {
     const query = fields.countrysearch.value.toLowerCase();
@@ -49,8 +52,8 @@ function stateStandBy(state, fields){
             fields.countrylist.innerHTML = "";
             if (fields.countrysearch.value.trim() !== "") {
               fields.statesearch.disabled = false;
-              state = 2
-              stateManager(state, fields)
+              currentState = 2
+              stateManager(currentState, fields)
             }else{
               fields.statesearch.disabled = true;
               // state = 1
@@ -62,8 +65,7 @@ function stateStandBy(state, fields){
   });
 }
 
-async function displayedStates(Currentstate, fields){
-  // const states = ["Jalisco", "Zacatecas", "Nuevo Leon", "Estado de Mexico", "Baja California", "Aguascalientes"];
+async function stateDisplayedStates(currentState, fields){
   const apiCityManagerInst = new ApiCityManager()
   const states = await apiCityManagerInst.getSatesList(fields.countrysearch.value)
   fields.statesearch.addEventListener("input", () => {
@@ -79,8 +81,8 @@ async function displayedStates(Currentstate, fields){
           fields.statelist.innerHTML = "";
           if (fields.statesearch.value.trim() !== "") {
             fields.citysearch.disabled = false;
-            state = 3
-            stateManager(state, fields)
+            currentState = 3
+            stateManager(currentState, fields)
           }else{
             fields.citysearch.disabled = true;
           }
@@ -89,11 +91,9 @@ async function displayedStates(Currentstate, fields){
       });
     }
   });
-  // await upDataCityData(fields.statename.textContent.split(": ")[1], fields);
 }
 
-async function displayedCities(state, fields){
-  // const cities = ["Zapopan", "Guadalajara", "Monterrey", "Ciudad de México", "Puebla", "Toluca"];
+async function stateDisplayedCities(currentState, fields){
   const apiCityManagerInst = new ApiCityManager()
   const cities = await apiCityManagerInst.getCitiesList(fields.countrysearch.value, fields.statesearch.value)
   fields.citysearch.addEventListener("input", () => {
@@ -108,14 +108,39 @@ async function displayedCities(state, fields){
           fields.citysearch.value = city;
           fields.citylist.innerHTML = "";
           await upDataCityData(city, fields)
-          state = 4
-          stateManager(state, fields)
+          currentState = 4
+          stateManager(currentState, fields)
         });
         fields.citylist.appendChild(li);
       });
     }
   });
-  await upDataCityData(fields.cityname.textContent.split(": ")[1], fields);
+}
+
+function stateAwait(currentState, fields){
+  // 1. Check country has text
+  fields.countrysearch.addEventListener("click", () => {
+    if(fields.countrysearch.value.trim() == ""){
+      fields.statesearch.value = "";
+      fields.statesearch.disabled = true;
+
+      fields.citysearch.value = "";
+      fields.citysearch.disabled = true;
+
+      currentState = 2
+      stateManager(currentState, fields)
+    }
+  });
+  // 2. Check State has text
+  fields.citysearch.addEventListener("click", () =>{
+    if(fields.statesearch.value.trim() == ""){
+      fields.citysearch.value = "";
+      fields.citysearch.disabled = true;
+      currentState = 3
+      stateManager(currentState, fields)
+    }
+  });
+
 }
 
 function getCountryList() {
