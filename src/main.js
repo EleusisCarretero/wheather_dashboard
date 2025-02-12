@@ -63,9 +63,9 @@ function stateStandBy(state, fields){
 }
 
 async function displayedStates(Currentstate, fields){
-  const states = ["Jalisco", "Zacatecas", "Nuevo Leon", "Estado de Mexico", "Baja California", "Aguascalientes"];
-  // const apiCityManagerInst = new ApiCityManager()
-  // const cities = apiCityManagerInst.
+  // const states = ["Jalisco", "Zacatecas", "Nuevo Leon", "Estado de Mexico", "Baja California", "Aguascalientes"];
+  const apiCityManagerInst = new ApiCityManager()
+  const states = await apiCityManagerInst.getSatesList(fields.countrysearch.value)
   fields.statesearch.addEventListener("input", () => {
     const query = fields.statesearch.value.toLowerCase();
     fields.statelist.innerHTML = "";

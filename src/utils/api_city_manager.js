@@ -20,4 +20,8 @@ export class ApiCityManager{
     async getCityImage(cityName){
         return await this.apiPictureClientInstance.getCityPicture(cityName)
     }
+    async getSatesList(countryName){
+        const statesList = await this.ApiNamesClientInstance.getSates(countryName)
+        return statesList.map(state => state.name);
+    }
 }

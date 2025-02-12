@@ -11,13 +11,13 @@ export class ApiNamesClient extends ApiBaseClient {
 
     async getSates(countryName){
         const endPoint = `countries/states`
-        const data = await this.postApiRequest(endPoint, inputData={"country": countryName})
+        const data = await this.postApiRequest(endPoint, {"country": countryName}, false)
         return data.data.states
     }
 
     async getCities(countryName, stateName){
         const endPoint = `countries/states/cities`
-        const data = await this.postApiRequest(endPoint, inputData={"country": countryName, "state": stateName})
+        const data = await this.postApiRequest(endPoint, {"country": countryName, "state": stateName},false)
         return data.data
     }
 }
