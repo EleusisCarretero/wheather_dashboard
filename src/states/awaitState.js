@@ -1,5 +1,4 @@
 
-
 export function stateAwait(fields, currentState){
   // 1. Check country has text
   fields.countrysearch.addEventListener("input", () => {
