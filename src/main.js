@@ -119,7 +119,7 @@ async function stateDisplayedCities(currentState, fields){
 
 function stateAwait(currentState, fields){
   // 1. Check country has text
-  fields.countrysearch.addEventListener("click", () => {
+  fields.countrysearch.addEventListener("input", () => {
     if(fields.countrysearch.value.trim() == ""){
       fields.statesearch.value = "";
       fields.statesearch.disabled = true;
@@ -132,7 +132,7 @@ function stateAwait(currentState, fields){
     }
   });
   // 2. Check State has text
-  fields.citysearch.addEventListener("click", () =>{
+  fields.citysearch.addEventListener("input", () =>{
     if(fields.statesearch.value.trim() == ""){
       fields.citysearch.value = "";
       fields.citysearch.disabled = true;
