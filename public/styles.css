@@ -14,8 +14,6 @@ body {
     color: white;
   }
   
-  
-  
   .main-container {
     display: flex;
     flex-direction: column;
@@ -61,24 +59,37 @@ body {
     border-radius: 5px;
     font-size: 1rem;
   }
-  
-  .city-list {
-    position: absolute;
-    top: 100%;
-    left: 0;
+
+  #state-search[disabled] {
     width: 100%;
-    background: white;
+    padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    list-style: none;
-    padding: 0;
-    margin: 5px 0 0 0;
-    max-height: 150px;
-    overflow-y: auto;
-    z-index: 10;
+    font-size: 1rem;
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+
+  #state-search:not([disabled]) {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
   }
 
   .country-list li {
+    padding: 10px;
+    cursor: pointer;
+    color: black; 
+  }
+  
+  .state-list li:hover {
+    background: #f0f0f0;
+  }
+
+  .state-list li {
     padding: 10px;
     cursor: pointer;
     color: black; 
