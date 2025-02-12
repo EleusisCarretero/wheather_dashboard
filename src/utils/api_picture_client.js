@@ -1,10 +1,10 @@
-import { APIManager } from "./api_manager.js";
+import { ApiBaseClient } from "./api_base_client.js";
 
 const BASE_URL = "https://www.googleapis.com/customsearch"
 const API_KEY = "AIzaSyCVbUkLOMrbxqznJEyaYFfD8_-5SGQoa-U"
 const CX = "b07bfbe04782c4376"
 
-export class APICityPictureManager extends APIManager {
+export class ApiPictureClient extends ApiBaseClient {
 
     constructor(){
         super(BASE_URL, `key=${API_KEY}`)

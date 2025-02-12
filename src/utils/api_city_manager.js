@@ -1,21 +1,23 @@
-import { APIManager } from "./api_manager.js";
+import { ApiGeoClient } from "./api_geo_client.js";
+import { ApiPictureClient } from "./api_picture_client.js";
+import { ApiWeatherClient } from "./api_weather_client.js";
+import { ApiNamesClient } from "./api_names_client.js";
 
-const BASE_URL = "https://api.opencagedata.com/geocode/v1"
-const API_KEY = "e417ee4662534d1b80d237753dfa10c6"
-
-
-export class APICityManager extends APIManager {
-
+export class ApiCityManager{
     constructor(){
-        super(BASE_URL, `key=${API_KEY}`)
+        this.apiGeoClientInstance = new ApiGeoClient()
+        this.apiPictureClientInstance = new ApiPictureClient()
+        this.ApiWeatherClientInstance = new ApiWeatherClient()
+        this.ApiNamesClientInstance =  new ApiNamesClient()
     }
-
-    async getCityCoordsByName(cityName){
-        const endPoint = `json?q=${cityName}`
-        const data = await this.getApiResponse(endPoint)
-        return {
-            lat: data.results[0].geometry.lat,
-            lng: data.results[0].geometry.lng
-          };
+    async getCityCurrentWeather(cityName){
+        // 1. Get coords based on the city name
+        const cityCoords = await this.apiGeoClientInstance.getCityCoordsByName(cityName)
+        // 2. Get current weather data based on coords
+        const weatherData = await this.ApiWeatherClientInstance.getCurrentMainWeatherInfoByCoords(...Object.values(cityCoords))
+        return weatherData
+    }
+    async getCityImage(cityName){
+        return await this.apiPictureClientInstance.getCityPicture(cityName)
     }
 }

@@ -1,7 +1,5 @@
 
-import { APICityManager } from "./utils/api_city_manager.js";
-import { APIWeatherManager } from "./utils/api_weather_manager.js";
-import { APICityPictureManager } from "./utils/api_city_pictures_manager.js";
+import { ApiCityManager } from "./utils/api_city_manager.js";
 
 const app = document.getElementById("app");
 
@@ -40,13 +38,11 @@ async function main() {
 }
 
 async function renderWeather(city, fields) {
-  const apiCity = new APICityManager()
-  const apiWeather = new APIWeatherManager()
-  const coor_arr = await apiCity.getCityCoordsByName(city)
-  const data = await apiWeather.getCurrentMainWeatherInfoByCoords(coor_arr.lat, coor_arr.lng);
+  const apiCityManagerInst = new ApiCityManager()
+  const data = await apiCityManagerInst.getCityCurrentWeather(city);
   const iconUrl = `https://openweathermap.org/img/wn/${data.iconCod}@2x.png`;
   if (data && data.name) {
-    fields.cityname.textContent = `Clima en ${data.name}`;
+    fields.cityname.textContent = `Clima en ${city}`;
     fields.temperature.textContent = `Temperatura: ${data.temp}°C`;
     fields.humidity.textContent = `Humedad: ${data.humidity}%`;
     fields.windspeed.textContent = `Velocidad del viento: ${data.windSpeed} m/s`;
@@ -57,9 +53,9 @@ async function renderWeather(city, fields) {
   }
 }
 
-async function fetchCityImage(city) {
-  const apiCityImages = new APICityPictureManager()
-  const cityPicture = await apiCityImages.getCityPicture(city)
+async function fetchCityImage(cityName) {
+  const apiCityManagerInst = new ApiCityManager()
+  const cityPicture = await apiCityManagerInst.getCityImage(cityName)
   document.body.style.backgroundImage = `url(${cityPicture})`;
 }
 

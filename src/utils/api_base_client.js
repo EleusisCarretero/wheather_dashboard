@@ -1,5 +1,5 @@
 
-export class APIManager {
+export class ApiBaseClient {
     constructor(baseUrl, apiKey){
         this.baseUrl = baseUrl
         this.apiKey = apiKey
@@ -18,5 +18,21 @@ export class APIManager {
             console.error(`Error ${error} trying to execute GET request service ${service}`);
             return null;
         }
+    }
+    async postApiRequest(endPoint, inputData, setKey=true){
+        const service = setKey? `${this.baseUrl}/${endPoint}&${this.apiKey}` : `${this.baseUrl}/${endPoint}`
+        const response = await fetch(service, {
+            method: "POST",
+            headers:{
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(inputData)
+        });
+        if (!response.ok) {
+            throw new Error(`HTTP Error: ${response.status}`);
+          }
+      
+          const responseData = await response.json();
+          return responseData
     }
 }
