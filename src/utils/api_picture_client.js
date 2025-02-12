@@ -10,9 +10,9 @@ export class ApiPictureClient extends ApiBaseClient {
         super(BASE_URL, `key=${API_KEY}`)
         this.cx = `cx=${CX}`
     }
-    async getCityPicture(city){
+    async getCityPicture(city, indx){
         const endPoint = `v1?q=${city}%20centro%20historico&searchType=image&${this.cx}`
         const response = await this.getApiResponse(endPoint);
-        return response.items[0].link
+        return response.items[indx].link
     }
 }

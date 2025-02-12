@@ -34,7 +34,6 @@ function stateManager(currentState, fields){
       stateAwait(currentState, fields)
       break;
   }
-
 }
 
 function stateStandBy(currentState, fields){
@@ -56,7 +55,6 @@ function stateStandBy(currentState, fields){
               stateManager(currentState, fields)
             }else{
               fields.statesearch.disabled = true;
-              // state = 1
             }
         });
         fields.countrylist.appendChild(li);
@@ -126,7 +124,6 @@ function stateAwait(currentState, fields){
 
       fields.citysearch.value = "";
       fields.citysearch.disabled = true;
-
       currentState = 2
       stateManager(currentState, fields)
     }
@@ -165,8 +162,12 @@ async function renderWeather(city, fields) {
 
 async function fetchCityImage(cityName) {
   const apiCityManagerInst = new ApiCityManager()
+  try{
   const cityPicture = await apiCityManagerInst.getCityImage(cityName)
   document.body.style.backgroundImage = `url(${cityPicture})`;
+  }catch(error){
+    alert(`There is no available pictures for city ${cityName} :(`)
+  }
 }
 
 async function upDataCityData(city, fields) {
