@@ -13,10 +13,20 @@
     <div class="search-container">
       <input 
         type="text" 
+        id="country-search" 
+        placeholder="Escribe un país..." 
+        autocomplete="off"
+      />
+    <ul id="country-list" class="country-list"></ul>
+    </div>
+    <div class="search-container">
+      <input 
+        type="text" 
         id="city-search" 
         placeholder="Escribe una ciudad..." 
         autocomplete="off"
-      />
+        disabled
+        />
       <ul id="city-list" class="city-list"></ul>
     </div>
 

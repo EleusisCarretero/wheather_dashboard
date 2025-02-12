@@ -13,9 +13,12 @@ export class ApiGeoClient extends ApiBaseClient {
     async getCityCoordsByName(cityName){
         const endPoint = `json?q=${cityName}`
         const data = await this.getApiResponse(endPoint)
-        return {
-            lat: data.results[0].geometry.lat,
-            lng: data.results[0].geometry.lng
-          };
+        if (data != null){
+            return {
+                lat: data.results[0].geometry.lat,
+                lng: data.results[0].geometry.lng
+            };
+        }
+        throw new Error(`Unable to get the current coords from city ${cityName}`);
     }
 }

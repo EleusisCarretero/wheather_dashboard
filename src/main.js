@@ -4,7 +4,7 @@ import { ApiCityManager } from "./utils/api_city_manager.js";
 const app = document.getElementById("app");
 
 function readCurrentFiledInfo(){
-  const mainAvailableFields = ["city-search", "city-list", "city-name", "temperature", "humidity", "wind-speed", "weather-icon"]
+  const mainAvailableFields = ["country-search", "country-list","city-search", "city-list", "city-name", "temperature", "humidity", "wind-speed", "weather-icon"]
   let objFields = {};
   for (var field of mainAvailableFields){
     var objName = field.replace("-","")
@@ -14,27 +14,59 @@ function readCurrentFiledInfo(){
 }
 
 async function main() {
+  
+
+    const availableCountries = getCountryList()
     const cities = ["Zapopan", "Guadalajara", "Monterrey", "Ciudad de México", "Puebla", "Toluca"];
     const fields = readCurrentFiledInfo()
-    fields.citysearch.addEventListener("input", () => {
-      const query = fields.citysearch.value.toLowerCase();
-      fields.citylist.innerHTML = "";
-
-      if (query){
-        const filteredCities = cities.filter(city => city.toLowerCase().includes(query));
-        filteredCities.forEach(city =>{
+    fields.countrysearch.addEventListener("input", () => {
+      const query = fields.countrysearch.value.toLowerCase();
+      fields.countrylist.innerHTML = "";
+      if(query){
+        const filteredCountries = availableCountries.filter(country => country.toLowerCase().includes(query));
+        filteredCountries.forEach(country =>{
           const li = document.createElement("li");
-          li.textContent = city;
+          li.textContent = country;
           li.addEventListener("click", async () => {
-            fields.citysearch.value = city;
-            fields.citylist.innerHTML = "";
-            await upDataCityData(city, fields)
+            fields.countrysearch.value = country;
+            fields.countrylist.innerHTML = "";
+            if (fields.countrysearch.value.trim() !== "") {
+              fields.citysearch.disabled = false;
+            }else{
+              fields.citysearch.disabled = true;
+            }
+            
           });
-          fields.citylist.appendChild(li);
+          fields.countrylist.appendChild(li);
         });
       }
     });
-    await upDataCityData(fields.cityname.textContent.split(": ")[1], fields);
+
+
+
+    // fields.citysearch.addEventListener("input", () => {
+    //   const query = fields.citysearch.value.toLowerCase();
+    //   fields.citylist.innerHTML = "";
+
+    //   if (query){
+    //     const filteredCities = cities.filter(city => city.toLowerCase().includes(query));
+    //     filteredCities.forEach(city =>{
+    //       const li = document.createElement("li");
+    //       li.textContent = city;
+    //       li.addEventListener("click", async () => {
+    //         fields.citysearch.value = city;
+    //         fields.citylist.innerHTML = "";
+    //         await upDataCityData(city, fields)
+    //       });
+    //       fields.citylist.appendChild(li);
+    //     });
+    //   }
+    // });
+    // await upDataCityData(fields.cityname.textContent.split(": ")[1], fields);
+}
+
+function getCountryList() {
+  return ["Mexico", "Colombia", "Ecuador", "Venezuela", "Argentina"];
 }
 
 async function renderWeather(city, fields) {
