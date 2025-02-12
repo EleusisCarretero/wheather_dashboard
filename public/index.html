@@ -16,8 +16,10 @@
         id="country-search" 
         placeholder="Escribe un país..." 
         autocomplete="off"
+        aria-disabled="true"
+        data-field="country-search"
       />
-    <ul id="country-list" class="country-list"></ul>
+    <ul id="country-list" class="country-list" data-field="country-list"></ul>
     </div>
     <div class="search-container">
       <input 
@@ -26,8 +28,10 @@
         placeholder="Escribe un estado/provincia..." 
         autocomplete="off"
         disabled
+        aria-disabled="true"
+        data-field="state-search"
       />
-    <ul id="state-list" class="state-list"></ul>
+    <ul id="state-list" class="state-list" data-field="state-list"></ul>
     </div>
     <div class="search-container">
       <input 
@@ -36,20 +40,22 @@
         placeholder="Escribe una ciudad..." 
         autocomplete="off"
         disabled
+        aria-disabled="true"
+        data-field="city-search"
         />
-      <ul id="city-list" class="city-list"></ul>
+      <ul id="city-list" class="city-list" data-field="city-list"></ul>
     </div>
 
     <!-- Weather card -->
     <div class="weather-container">
-      <h1 id="city-name"><strong>Clima en: </strong>Zapopan</h1>
+      <h1 id="city-name" data-field="city-name"><strong>Clima en: </strong>Zapopan </h1>
       <div class="weather-info">
-        <p id="temperature"><strong>Temperatura:</strong> 0.0°C</p>
-        <p id="humidity"><strong>Humedad:</strong> 0%</p>
-        <p id="wind-speed"><strong>Velocidad del viento:</strong> 0.0 m/s</p>
+        <p id="temperature" data-field="temperature"><strong>Temperatura:</strong> 0.0°C</p>
+        <p id="humidity" data-field="humidity"><strong>Humedad:</strong> 0%</p>
+        <p id="wind-speed" data-field="wind-speed"><strong>Velocidad del viento:</strong> 0.0 m/s</p>
       </div>
       <div class="weather-icon">
-        <img id="weather-icon" src="https://openweathermap.org/img/wn/04n@2x.png" alt="Clima">
+        <img id="weather-icon" src="https://openweathermap.org/img/wn/04n@2x.png" alt="Clima" data-field="weather-icon">
       </div>
     </div>
   </div>

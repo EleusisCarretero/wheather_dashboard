@@ -4,11 +4,11 @@ import { ApiCityManager } from "./utils/api_city_manager.js";
 const app = document.getElementById("app");
 
 function readCurrentFiledInfo(){
-  const mainAvailableFields = ["country-search", "country-list","state-search", "state-list","city-search", "city-list", "city-name", "temperature", "humidity", "wind-speed", "weather-icon"]
+  const mainAvailableFields = document.querySelectorAll("[data-field]");
   let objFields = {};
   for (var field of mainAvailableFields){
-    var objName = field.replace("-","")
-    objFields[objName] = document.getElementById(field);
+    var objName = field.id.replace("-","")
+    objFields[objName] = document.getElementById(field.id);
   }
   return objFields
 }
