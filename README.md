@@ -10,7 +10,7 @@ Simply type a country, select a state/province, and then choose a city to see:
 
 ## Demo 📸
 
-![Weather Dashboard Demo](https://cdn2.thecatapi.com/images/st.jpg)
+![Weather Dashboard Demo](https://eleusiscarretero.github.io/wheather_dashboard/)
 
 ## Features ✨
 - 🗺️ Hierarchical navigation: Search by country, state/province, and city.
